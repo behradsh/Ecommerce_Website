@@ -18,7 +18,7 @@ Database: SQLite (for development)
 Installation
 1.Clone the repository:
 
-   git clone https://github.com/behradsh/Maktab_Final
+   git clone https://github.com/behradsh/Ecommerce_Website/tree/develop
 2.Change to the project directory:
 
    cd project_directory
