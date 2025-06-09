@@ -1,0 +1,419 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Dashboard</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <link href="{% static 'dashboards/css/styles.css' %}" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    </head>
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3">Seller Panel</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <div class="input-group">
+                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                </div>
+            </form>
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#!">Settings</a></li>
+                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" id="logout_btn" href="#!">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Home</div>
+                            <a class="nav-link" href="#">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Dashboard
+                            </a>
+                            <div class="sb-sidenav-menu-heading">SubPages</div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Account Options
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" id='seller_store';>Store</a>
+                                    <a class="nav-link" id='seller_employee'>Employees</a>
+                                </nav>
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" id='seller_orders'>Store Orders</a>
+                                </nav>
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" id='seller_change_password'>ChangePassword</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                                <div class="sb-sidenav-menu-heading"></div>
+                                <a class="nav-link" id="seller_products">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                    Products List
+                                </a>
+                                <a class="nav-link" id="seller_create_product">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                    Add Products
+                                </a>
+                                <a class="nav-link" id="seller_categories">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                    Categories
+                                </a>
+                                <a class="nav-link" id="seller_reports">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                    Reports
+                                </a>
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        <div class="small" id='login_user'>Logged in as:</div>
+                    </div>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Create Category</h1>
+                        <section id="create_category_section">
+                            <form id="createCategoryForm">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Category Name</label>
+                                    <input type="text" class="form-control" id="name" name="name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="parent" class="form-label">Parent Category</label>
+                                    <select class="form-select" id="parent" name="parent">
+                                        <option value="">No Parent</option>
+                                        <!-- Parent categories will be dynamically added here -->
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Create Category</button>
+                            </form>
+                        </section>
+                        
+                        <div class="row">
+                            
+                        </div>
+                    </div>
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="{% static 'dashboards/js/scripts.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+        <script>
+            // Function to fetch user profile and populate the form
+            async function fetchUserProfile() {
+                const accessToken = localStorage.getItem('accessToken');
+                if (!accessToken) {
+                    console.error('Access token is missing.');
+                    return;
+                }
+        
+                try {
+                    const response = await fetch('http://127.0.0.1:8000/en/api/customer/dashboard/profile/', {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+        
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch user profile.');
+                    }
+        
+                    const data = await response.json();
+                    populateProfileForm(data); // Assuming the response is an array with one object
+                } catch (error) {
+                    console.error('Error fetching user profile:', error);
+                }
+            }
+        
+            // Function to populate the form with user data
+            function populateProfileForm(user) {
+                const name_of_profile = document.getElementById('login_user')
+                name_of_profile.innerHTML=`Logged in as:${user.username}`
+            }
+        
+            // Function to update user profile
+            async function updateUserProfile() {
+                const accessToken = localStorage.getItem('accessToken');
+                if (!accessToken) {
+                    console.error('Access token is missing.');
+                    return;
+                }
+        
+                const form = document.getElementById('userProfileForm');
+                const formData = new FormData(form);
+        
+                try {
+                    const response = await fetch('http://127.0.0.1:8000/en/api/customer/dashboard/profile/', {
+                        method: 'PATCH',
+                        headers: {
+                            'Authorization': `Bearer ${aseller_storeccessToken}`
+                        },
+                        body: formData
+                    });
+        
+                    if (!response.ok) {
+                        throw new Error('Failed to update user profile.');
+                    }
+        
+                    alert('Profile updated successfully!');
+                    fetchUserProfile(); // Refresh the form with updated data
+                } catch (error) {
+                    console.error('Error updating user profile:', error);
+                }
+            }
+        
+            // Fetch user profile on page load
+            document.addEventListener('DOMContentLoaded', fetchUserProfile);
+        </script>
+        <script>
+            // Fetch parent categories and populate the dropdown
+            async function fetchParentCategories() {
+                const accessToken = localStorage.getItem('accessToken');
+                if (!accessToken) {
+                    alert('Access token is missing. Please log in again.');
+                    return;
+                }
+        
+                try {
+                    const response = await fetch('http://127.0.0.1:8000/en/api/seller/dashboard/category/', {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+        
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch parent categories.');
+                    }
+        
+                    const categories = await response.json();
+                    const parentSelect = document.getElementById('parent');
+        
+                    categories.forEach(category => {
+                        const option = document.createElement('option');
+                        option.value = category.id;
+                        option.textContent = category.name;
+                        parentSelect.appendChild(option);
+                    });
+                } catch (error) {
+                    console.error('Error fetching parent categories:', error);
+                    alert(error.message);
+                }
+            }
+        
+            // Handle form submission to create a category
+            document.getElementById('createCategoryForm').addEventListener('submit', async function (e) {
+                e.preventDefault(); // Prevent default form submission
+        
+                const accessToken = localStorage.getItem('accessToken');
+                if (!accessToken) {
+                    alert('Access token is missing. Please log in again.');
+                    return;
+                }
+        
+                const form = e.target;
+                const formData = new FormData(form);
+        
+                // Convert form data to JSON
+                const data = {};
+                formData.forEach((value, key) => {
+                    data[key] = value;
+                });
+        
+                try {
+                    const response = await fetch('http://127.0.0.1:8000/en/api/seller/dashboard/category/', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
+        
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.detail || JSON.stringify(errorData));
+                    }
+        
+                    alert('Category created successfully!');
+                    form.reset(); // Reset the form after successful submission
+                } catch (error) {
+                    console.error('Error creating category:', error);
+                    alert(error.message);
+                }
+            });
+        
+            // Fetch parent categories on page load
+            document.addEventListener('DOMContentLoaded', fetchParentCategories);
+        </script>
+        <script>
+            document.getElementById('logout_btn').addEventListener('click', async function(e) {
+              e.preventDefault();
+          
+              const accessToken = localStorage.getItem('accessToken');
+              if (!accessToken) {
+                  // Already logged out or no token
+                  window.location.href = '/en/login/';
+                  return;
+              }
+          
+              try {
+                  const response = await fetch('http://127.0.0.1:8000/en/api/logout/', {
+                      method: 'POST',
+                      headers: {
+                          'Authorization': `Bearer ${accessToken}`,
+                          'Content-Type': 'application/json'
+                      }
+                  });
+          
+                  // Remove tokens from localStorage
+                  localStorage.removeItem('accessToken');
+                  localStorage.removeItem('refreshToken');
+          
+                  // Redirect to login page (or homepage)
+                  window.location.href = `{% url 'home_page'%}`;
+              } catch (error) {
+                  // Even if error, clear tokens and redirect
+                  localStorage.removeItem('accessToken');
+                  localStorage.removeItem('refreshToken');
+                  window.location.href = `{% url 'home_page'%}`;
+              }
+          });
+      </script>
+  
+        <script>
+            document.getElementById('seller_store').addEventListener('click', function(e) {
+              // Prevent the default link behavior
+              e.preventDefault();
+              
+              // Get tokens from local storage
+              const accessToken = localStorage.getItem('accessToken');
+              const refreshToken = localStorage.getItem('refreshToken');
+              
+              // Redirect to the dashboard with tokens as parameters
+              window.location.href = "{% url 'seller_store'%}";
+            });
+        </script>
+
+            <script>
+
+              // address redirect
+              document.getElementById('seller_employee').addEventListener('click', function(e) {
+                // Prevent the default link behavior
+                e.preventDefault();
+              // Get tokens from local storage
+              const accessToken = localStorage.getItem('accessToken');
+              const refreshToken = localStorage.getItem('refreshToken');
+                
+                
+                // Redirect to the dashboard with tokens as parameters
+                window.location.href = `{% url 'employee_list' %}`;
+              });
+            </script>
+            <script>
+
+              document.getElementById('seller_orders').addEventListener('click', function(e) {
+                // Prevent the default link behavior
+                e.preventDefault();
+                              // Get tokens from local storage
+              const accessToken = localStorage.getItem('accessToken');
+              const refreshToken = localStorage.getItem('refreshToken');
+
+                // Redirect to the dashboard with tokens as parameters
+                window.location.href = `{% url 'seller_orders' %}`;
+              });
+            </script>
+            <script>
+
+              document.getElementById('seller_change_password').addEventListener('click', function(e) {
+                // Prevent the default link behavior
+                e.preventDefault();
+                                              // Get tokens from local storage
+              const accessToken = localStorage.getItem('accessToken');
+              const refreshToken = localStorage.getItem('refreshToken');
+
+                
+                // Redirect to the dashboard with tokens as parameters
+                window.location.href = `{% url 'change_password_seller' %}`;
+            });
+          </script>
+          <script>
+
+            document.getElementById('seller_products').addEventListener('click', function(e) {
+              // Prevent the default link behavior
+              e.preventDefault();
+                                            // Get tokens from local storage
+            const accessToken = localStorage.getItem('accessToken');
+            const refreshToken = localStorage.getItem('refreshToken');
+
+              
+              // Redirect to the dashboard with tokens as parameters
+              window.location.href = `{% url 'product_list' %}`;
+          });
+        </script>
+        <script>
+
+            document.getElementById('seller_create_product').addEventListener('click', function(e) {
+              // Prevent the default link behavior
+              e.preventDefault();
+                                            // Get tokens from local storage
+            const accessToken = localStorage.getItem('accessToken');
+            const refreshToken = localStorage.getItem('refreshToken');
+
+              
+              // Redirect to the dashboard with tokens as parameters
+              window.location.href = `{% url 'create_product' %}`;
+          });
+        </script>
+        <script>
+
+            document.getElementById('seller_categories').addEventListener('click', function(e) {
+              // Prevent the default link behavior
+              e.preventDefault();
+                                            // Get tokens from local storage
+            const accessToken = localStorage.getItem('accessToken');
+            const refreshToken = localStorage.getItem('refreshToken');
+
+              
+              // Redirect to the dashboard with tokens as parameters
+              window.location.href = `{% url 'category_list' %}`;
+          });
+        </script>
+          
+    </body>
+</html>

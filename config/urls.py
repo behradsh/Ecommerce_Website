@@ -1,0 +1,50 @@
+"""
+URL configuration for config project.
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/5.2/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django.contrib import admin
+from django.urls import path,include
+from users_app.views import (LoginTemplateView,SellerLoginTemplate)
+from rest_framework.routers import DefaultRouter
+from django.conf.urls.i18n import i18n_patterns
+# from products_app.views import (CategoryView,ProductView)
+from drf_spectacular.views import (SpectacularAPIView,SpectacularSwaggerView,SpectacularRedocView)
+from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshView)
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer, TokenRefreshSerializer
+# router = DefaultRouter()
+# router.register(r"category",CategoryView)
+# router.register(r"product",ProductView)
+admin.site.site_title = "FoodMart Admin Panel"
+admin.site.site_header = "FoodMart administration"
+admin.site.index_title = "FoodMart Website administration"
+
+
+
+urlpatterns=i18n_patterns(
+    path('admin/', admin.site.urls),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('login/customer/', LoginTemplateView.as_view(), name='login_customer'),
+    path('login/seller/', SellerLoginTemplate.as_view(), name='login_seller'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    # path('api/', include(router.urls)),
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/schema/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger'),
+    path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    path('', include('core_app.urls')),
+    path('', include('users_app.urls')),
+    path('', include('products_app.urls')),
+    path('', include('store_app.urls')),
+    path('', include('orders_app.urls')),
+)
